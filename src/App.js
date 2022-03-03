@@ -1,9 +1,7 @@
+import ToDo from "./ToDo/ToDo";
+
 function App() {
-  return (
-    <div>
-      <h2>To do App</h2>
-    </div>
-  );
+  return <ToDo />;
 }
 
 export default App;
