@@ -1,7 +1,14 @@
 import React from "react";
+import classes from "./ToDoItem.module.css";
 
-function ToDoItem() {
-  return <div>ToDoItem</div>;
-}
+const ToDoItem = ({ para }) => {
+  return (
+    <li className={classes.unit}>
+      <div>
+        <p>{para}</p>
+      </div>
+    </li>
+  );
+};
 
 export default ToDoItem;
