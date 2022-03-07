@@ -1,0 +1,21 @@
+.btn {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 15px;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #0069d9;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
