@@ -1,6 +1,10 @@
-.unit {
+.item {
   font-weight: bold;
   background-color: gray;
-  padding: 5px 15px;
+  padding: 15px;
   margin: 10px 0;
+}
+
+.checkbox {
+  margin-right: 15px;
 }
