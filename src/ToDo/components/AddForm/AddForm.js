@@ -13,7 +13,7 @@ const AddForm = (props) => {
     event.preventDefault();
 
     const taskData = {
-      para: enteredTask,
+      text: enteredTask,
     };
     props.onSaveTask(taskData);
     setEnteredTask("");
@@ -21,11 +21,13 @@ const AddForm = (props) => {
 
   return (
     <form className={classes.container} onSubmit={submitHandler}>
-      <label htmlFor="task">Enter task</label>
+      <label className={classes.inputLabel} htmlFor="task">
+        Enter task
+      </label>
       <input
         type="text"
         id="task"
-        className={classes.task}
+        className={classes.inputField}
         onChange={onInputChange}
         value={enteredTask}
       />
