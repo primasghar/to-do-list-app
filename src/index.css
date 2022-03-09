@@ -9,9 +9,8 @@ html {
 }
 
 body {
-  font-size: 16px;
+  font-size: 18px;
   color: aliceblue;
-  background-color: black;
-
+  background-color: rgb(27, 133, 118);
   margin: 0;
 }
