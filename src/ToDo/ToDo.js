@@ -1,51 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AddForm from "./components/AddForm/AddForm";
 import ToDoList from "./components/ToDoList/ToDoList";
 
 import classes from "./ToDo.module.css";
 
+import {
+  findTaskIndex,
+  filteredTasks,
+  saveToLocalHost,
+  retrievefromLocalHost,
+} from "./utilityFunctions";
+
 function ToDo() {
   const [openTasks, setOpenTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
 
+  useEffect(() => {
+    const loadedOpenTasks = retrievefromLocalHost("openTasks");
+    const loadedDoneTasks = retrievefromLocalHost("doneTasks");
+
+    if (loadedOpenTasks) {
+      setOpenTasks(loadedOpenTasks);
+    }
+
+    if (loadedDoneTasks) {
+      setDoneTasks(loadedDoneTasks);
+    }
+  }, []);
+
   const addTaskToOpen = (openTask) => {
     setOpenTasks((prevTasks) => {
-      return [openTask, ...prevTasks];
+      const newOpenArr = [openTask, ...prevTasks];
+
+      saveToLocalHost("openTasks", newOpenArr);
+
+      return newOpenArr;
     });
   };
 
   const addTaskToDone = (doneTask) => {
     setDoneTasks((prevTasks) => {
-      return [doneTask, ...prevTasks];
+      const newDoneArr = [doneTask, ...prevTasks];
+      saveToLocalHost("openTasks", newDoneArr);
+
+      return newDoneArr;
     });
   };
 
   const handleOpenTask = (openTasks, doneTask) => {
-    const doneTaskIndex = openTasks.findIndex((task) => task === doneTask);
-
-    const filteredOpenTasks = openTasks.filter(
-      (task, index) => index !== doneTaskIndex
+    const filteredOpenTasks = filteredTasks(
+      openTasks,
+      findTaskIndex(openTasks, doneTask)
     );
 
-    // reset the Open Tasks list after removing the done tasks
     setOpenTasks(filteredOpenTasks);
 
-    //Adding the task to the Done Task list
+    saveToLocalHost("openTasks", filteredOpenTasks);
+
     addTaskToDone(doneTask);
   };
 
   const handleDoneTask = (doneTasks, taskToOpen) => {
-    const taskIndex = doneTasks.findIndex((task) => task === taskToOpen);
-
-    const filteredDoneTasks = doneTasks.filter(
-      (task, index) => index !== taskIndex
+    const filteredDoneTasks = filteredTasks(
+      doneTasks,
+      findTaskIndex(doneTasks, taskToOpen)
     );
 
     setDoneTasks(filteredDoneTasks);
 
-    // reset the open tasks after removing the done tasks
+    saveToLocalHost("doneTasks", filteredDoneTasks);
+
     addTaskToOpen(taskToOpen);
+  };
+
+  const handleOpenRemoveTask = (event, tasks, toRemove) => {
+    const remainderTasks = filteredTasks(tasks, findTaskIndex(tasks, toRemove));
+
+    setOpenTasks(remainderTasks);
+
+    saveToLocalHost("openTasks", remainderTasks);
+    event.stopPropagation();
+  };
+
+  const handleDoneRemoveTask = (event, tasks, toRemove) => {
+    const remainderTasks = filteredTasks(tasks, findTaskIndex(tasks, toRemove));
+
+    setDoneTasks(remainderTasks);
+
+    saveToLocalHost("doneTasks", remainderTasks);
+    event.stopPropagation();
   };
 
   const saveTaskHandler = (enteredTaskData) => addTaskToOpen(enteredTaskData);
@@ -55,9 +99,17 @@ function ToDo() {
       <h1 className={classes.heading}>To-Do-list</h1>
       <AddForm onSaveTask={saveTaskHandler} />
       <h2>Open Tasks </h2>
-      <ToDoList tasks={openTasks} handleTask={handleOpenTask} />
+      <ToDoList
+        tasks={openTasks}
+        handleTask={handleOpenTask}
+        handleRemoval={handleOpenRemoveTask}
+      />
       <h2>Done Tasks</h2>
-      <ToDoList tasks={doneTasks} handleTask={handleDoneTask} />
+      <ToDoList
+        tasks={doneTasks}
+        handleTask={handleDoneTask}
+        handleRemoval={handleDoneRemoveTask}
+      />
     </main>
   );
 }
