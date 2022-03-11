@@ -2,7 +2,7 @@ import React from "react";
 import ToDoItem from "../ToDoItem/ToDoItem";
 import classes from "./ToDoList.module.css";
 
-const ToDoList = ({ tasks, handleTask }) => {
+const ToDoList = ({ tasks, handleTask, handleRemoval }) => {
   return (
     <ul className={classes.list}>
       {!tasks.length && "No tasks"}
@@ -11,6 +11,7 @@ const ToDoList = ({ tasks, handleTask }) => {
           text={task.text}
           key={index}
           handleTask={() => handleTask(tasks, task)}
+          handleRemoval={(event) => handleRemoval(event, tasks, task)}
         />
       ))}
     </ul>
