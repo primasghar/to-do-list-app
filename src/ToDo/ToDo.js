@@ -9,7 +9,7 @@ import {
   findTaskIndex,
   filteredTasks,
   saveToLocalHost,
-  retrievefromLocalHost,
+  retrieveFromLocalHost,
 } from "./utilityFunctions";
 
 function ToDo() {
@@ -17,8 +17,8 @@ function ToDo() {
   const [doneTasks, setDoneTasks] = useState([]);
 
   useEffect(() => {
-    const loadedOpenTasks = retrievefromLocalHost("openTasks");
-    const loadedDoneTasks = retrievefromLocalHost("doneTasks");
+    const loadedOpenTasks = retrieveFromLocalHost("openTasks");
+    const loadedDoneTasks = retrieveFromLocalHost("doneTasks");
 
     if (loadedOpenTasks) {
       setOpenTasks(loadedOpenTasks);
