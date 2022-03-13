@@ -7,6 +7,5 @@ export const filteredTasks = (tasksList, taskToFilterIndex) =>
 export const saveToLocalHost = (key, arr) =>
   localStorage.setItem(key, JSON.stringify(arr));
 
-export const retrievefromLocalHost = (key) => {
+export const retrieveFromLocalHost = (key) =>
   JSON.parse(localStorage.getItem(key));
-};
