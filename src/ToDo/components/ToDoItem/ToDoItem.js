@@ -8,7 +8,12 @@ const ToDoItem = ({ text, handleTask, handleRemoval }) => {
     <li className={classes.item} onClick={handleTask} role="button">
       <p>{text} </p>
       <span>
-        <img src={img1} alt="trash icon for delete" onClick={handleRemoval} />
+        <img
+          className={classes.del}
+          src={img1}
+          alt="trash icon for delete"
+          onClick={handleRemoval}
+        />
       </span>
     </li>
   );

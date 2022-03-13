@@ -1,4 +1,6 @@
 .item {
+  display: flex;
+  justify-content: space-between;
   color: rgb(9, 77, 68);
   font-weight: bold;
   background-color: white;
@@ -8,4 +10,8 @@
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(102, 96, 96, 0.2);
   cursor: pointer;
+}
+
+.del {
+  margin-top: 10px;
 }
